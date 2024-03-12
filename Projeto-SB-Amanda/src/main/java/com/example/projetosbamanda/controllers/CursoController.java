@@ -1,7 +1,7 @@
 package com.example.projetosbamanda.controllers;
 
-import com.example.projetosbamanda.dtos.CadastrarOuEditarCursoDTO;
-import com.example.projetosbamanda.dtos.CursoCadastradoOuEditadoDTO;
+import com.example.projetosbamanda.dtos.curso.CadastrarOuEditarCursoDTO;
+import com.example.projetosbamanda.dtos.curso.CursoCadastradoOuEditadoDTO;
 import com.example.projetosbamanda.models.Curso;
 import com.example.projetosbamanda.services.CursoService;
 import jakarta.transaction.Status;

@@ -1,6 +1,6 @@
 package com.example.projetosbamanda.services;
 
-import com.example.projetosbamanda.dtos.CadastrarOuEditarEstudanteDTO;
+import com.example.projetosbamanda.dtos.estudante.CadastrarOuEditarEstudanteDTO;
 import com.example.projetosbamanda.models.Estudante;
 import com.example.projetosbamanda.repositories.EstudanteRepository;
 import org.springframework.beans.factory.annotation.Autowired;

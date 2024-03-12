@@ -20,11 +20,11 @@ public class Matricula {
     }
 
     public Curso getIdcurso() {
-        return idcurso;
+        return idCurso;
     }
 
-    public void setIdcurso(Curso idcurso) {
-        this.idcurso = idcurso;
+    public void setIdcurso(Curso idCurso) {
+        this.idCurso = idCurso;
     }
 
     public Estudante getIdEstudante() {
@@ -36,8 +36,8 @@ public class Matricula {
     }
 
     @OneToOne
-    @JoinColumn (name = "idcursos", referencedColumnName = "id")
-    private Curso idcurso;
+    @JoinColumn (name = "idCursos", referencedColumnName = "id")
+    private Curso idCurso;
 
     @OneToOne
     @JoinColumn (name = "idEstudante", referencedColumnName = "id")

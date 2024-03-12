@@ -1,4 +1,4 @@
-package com.example.projetosbamanda.dtos;
+package com.example.projetosbamanda.dtos.curso;
 
 public record CadastrarOuEditarCursoDTO(String titulo, int creditos) {
     public CadastrarOuEditarCursoDTO {

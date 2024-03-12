@@ -1,6 +1,5 @@
 package com.example.projetosbamanda.repositories;
 
-import com.example.projetosbamanda.models.Curso;
 import com.example.projetosbamanda.models.Estudante;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package com.example.projetosbamanda.dtos;
+package com.example.projetosbamanda.dtos.curso;
 
 import java.util.UUID;
 

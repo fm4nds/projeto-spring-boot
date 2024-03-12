@@ -1,6 +1,6 @@
 package com.example.projetosbamanda.services;
 
-import com.example.projetosbamanda.dtos.CadastrarOuEditarCursoDTO;
+import com.example.projetosbamanda.dtos.curso.CadastrarOuEditarCursoDTO;
 import com.example.projetosbamanda.models.Curso;
 import com.example.projetosbamanda.repositories.CursoRepository;
 import com.example.projetosbamanda.services.interfaces.CursoInterface;
