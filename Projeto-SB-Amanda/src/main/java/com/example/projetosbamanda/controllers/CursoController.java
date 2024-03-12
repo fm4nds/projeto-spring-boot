@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 public class CursoController {
-    private CursoService cursoService;
+    final private CursoService cursoService;
 
     @Autowired
     public CursoController(CursoService cursoService) {
