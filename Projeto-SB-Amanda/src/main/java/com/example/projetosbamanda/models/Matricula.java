@@ -11,6 +11,30 @@ public class Matricula {
     @GeneratedValue (strategy = GenerationType.AUTO)
     private UUID id;
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Curso getIdcurso() {
+        return idcurso;
+    }
+
+    public void setIdcurso(Curso idcurso) {
+        this.idcurso = idcurso;
+    }
+
+    public Estudante getIdEstudante() {
+        return idEstudante;
+    }
+
+    public void setIdEstudante(Estudante idEstudante) {
+        this.idEstudante = idEstudante;
+    }
+
     @OneToOne
     @JoinColumn (name = "idcursos", referencedColumnName = "id")
     private Curso idcurso;

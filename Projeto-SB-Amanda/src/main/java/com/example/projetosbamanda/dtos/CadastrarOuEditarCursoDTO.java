@@ -1,0 +1,12 @@
+package com.example.projetosbamanda.dtos;
+
+public record CadastrarOuEditarCursoDTO(String titulo, int creditos) {
+    public CadastrarOuEditarCursoDTO {
+        if(titulo == null || titulo.isEmpty()) {
+            throw new IllegalArgumentException("O título é obrigatório");
+        }
+        if(creditos <= 0) {
+            throw new IllegalArgumentException("Crédito deve ser maior que 0");
+        }
+    }
+}
