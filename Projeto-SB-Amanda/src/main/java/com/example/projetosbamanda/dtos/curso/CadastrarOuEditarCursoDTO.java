@@ -6,7 +6,7 @@ public record CadastrarOuEditarCursoDTO(String titulo, int creditos) {
             throw new IllegalArgumentException("O título é obrigatório");
         }
         if(creditos <= 0) {
-            throw new IllegalArgumentException("Crédito deve ser maior que 0");
+            throw new IllegalArgumentException("Créditos deve ser maior que 0");
         }
     }
 }
