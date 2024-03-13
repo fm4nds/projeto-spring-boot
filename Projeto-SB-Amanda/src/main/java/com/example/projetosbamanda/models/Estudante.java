@@ -1,6 +1,7 @@
 package com.example.projetosbamanda.models;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public class Estudante {
     @Column (nullable = false, unique = true)
     private String nome;
     @Column (nullable = false)
-    private Date dataMatricula;
+    private LocalDateTime dataMatricula;
 
     public UUID getId() {
         return id;
@@ -31,11 +32,11 @@ public class Estudante {
         this.nome = nome;
     }
 
-    public Date getDataMatricula() {
+    public LocalDateTime getDataMatricula() {
         return dataMatricula;
     }
 
-    public void setDataMatricula(Date dataMatricula) {
+    public void setDataMatricula(LocalDateTime dataMatricula) {
         this.dataMatricula = dataMatricula;
     }
 }

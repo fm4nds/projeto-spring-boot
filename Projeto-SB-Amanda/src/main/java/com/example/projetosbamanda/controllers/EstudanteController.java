@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/estudante")
 public class EstudanteController {
     final private EstudanteService estudanteService;
     @Autowired
@@ -26,16 +27,17 @@ public class EstudanteController {
         List<Estudante> todosOsEstudantes = estudanteService.listaDeEstudantes();
         if (todosOsEstudantes.isEmpty()) {
             return ResponseEntity.notFound().build();
-        }
+    }
         return ResponseEntity.ok(todosOsEstudantes);
     }
 
-    @GetMapping
+    @GetMapping("/{idEstudante}")
     public ResponseEntity<Optional<Estudante>> buscarEstudantePorId(@PathVariable UUID idEstudante) {
         Optional<Estudante> estudanteEncontrado = estudanteService.buscarEstudantePorId(idEstudante);
         if (estudanteEncontrado.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+        System.out.println(estudanteEncontrado.get());
         return ResponseEntity.ok(estudanteEncontrado);
     }
 
@@ -53,25 +55,26 @@ public class EstudanteController {
 
 
     @Transactional
-    @PutMapping
+    @PatchMapping("/{idEstudante}")
     public ResponseEntity<EstudanteCadastradoOuEditadoDTO> editarEstudante(@PathVariable UUID idEstudante, @RequestBody CadastrarOuEditarEstudanteDTO atualizarEstudanteDTO) {
         Optional<Estudante> estudanteEncontrado = estudanteService.buscarEstudantePorId(idEstudante);
         if (estudanteEncontrado.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        estudanteService.atualizarEstudante(idEstudante, atualizarEstudanteDTO);
+        Estudante estudante = estudanteService.atualizarEstudante(idEstudante, atualizarEstudanteDTO);
         EstudanteCadastradoOuEditadoDTO estudanteAtualizadoDTO = new EstudanteCadastradoOuEditadoDTO(idEstudante,
-                atualizarEstudanteDTO.nome(), atualizarEstudanteDTO.dataMatricula());
+                atualizarEstudanteDTO.nome(), estudante.getDataMatricula());
         return ResponseEntity.ok(estudanteAtualizadoDTO);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{idEstudante}")
     public ResponseEntity<Status> deletarEstudante(@PathVariable UUID idEstudante) {
         Optional<Estudante> estudanteEncontrado = estudanteService.buscarEstudantePorId(idEstudante);
         if (estudanteEncontrado.isEmpty()) {
 
             return ResponseEntity.notFound().build();
         }
+        estudanteService.deletarEstudante(idEstudante);
         return ResponseEntity.noContent().build();
     }
 }

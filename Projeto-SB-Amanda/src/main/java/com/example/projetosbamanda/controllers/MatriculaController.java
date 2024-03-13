@@ -1,5 +1,4 @@
 package com.example.projetosbamanda.controllers;
-
 import com.example.projetosbamanda.dtos.matricula.CadastrarOuEditarMatriculaDTO;
 import com.example.projetosbamanda.dtos.matricula.MatriculaCadastradaOuEditadaDTO;
 import com.example.projetosbamanda.models.Matricula;
@@ -9,12 +8,12 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/matricula")
 public class MatriculaController { 
     final private MatriculaService matriculaService;
     @Autowired
@@ -30,7 +29,7 @@ public class MatriculaController {
         return ResponseEntity.ok(todasAsMatriculas);
     }
 
-    @GetMapping
+    @GetMapping("/{idMatricula}")
     public ResponseEntity<Optional<Matricula>> buscarMatriculaPorId(@PathVariable UUID idMatricula) {
         Optional<Matricula> matriculaEncontrada = matriculaService.buscarMatriculaPorId(idMatricula);
         if (matriculaEncontrada.isEmpty()) {
@@ -46,32 +45,31 @@ public class MatriculaController {
         if (matriculaCadastrada == null) {
             return ResponseEntity.internalServerError().build();
         }
-        MatriculaCadastradaOuEditadaDTO matriculaCadastradaDTO = new MatriculaCadastradaOuEditadaDTO(matriculaCadastrada.getId(),
-                matriculaCadastrada.getIdcurso().getId(), matriculaCadastrada.getIdEstudante().getId());
+        MatriculaCadastradaOuEditadaDTO matriculaCadastradaDTO = new MatriculaCadastradaOuEditadaDTO(matriculaCadastrada.getId());
         return ResponseEntity.ok(matriculaCadastradaDTO);
     }
 
 
     @Transactional
-    @PutMapping
+    @PatchMapping("/{idMatricula}")
     public ResponseEntity<MatriculaCadastradaOuEditadaDTO> editarMatricula(@PathVariable UUID idMatricula, @RequestBody CadastrarOuEditarMatriculaDTO atualizarMatriculaDTO) {
         Optional<Matricula> matriculaEncontrada = matriculaService.buscarMatriculaPorId(idMatricula);
         if (matriculaEncontrada.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        matriculaService.atualizarMatricula(idMatricula, atualizarMatriculaDTO);
-        MatriculaCadastradaOuEditadaDTO matriculaAtualizadaDTO = new MatriculaCadastradaOuEditadaDTO(idMatricula,
-                atualizarMatriculaDTO.idCurso(), atualizarMatriculaDTO.idEstudante());
+        Matricula matriculaAtualizada = matriculaService.atualizarMatricula(idMatricula, atualizarMatriculaDTO);
+        MatriculaCadastradaOuEditadaDTO matriculaAtualizadaDTO = new MatriculaCadastradaOuEditadaDTO(matriculaAtualizada.getId());
         return ResponseEntity.ok(matriculaAtualizadaDTO);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{idMatricula}")
     public ResponseEntity<Status> deletarMatricula(@PathVariable UUID idMatricula) {
         Optional<Matricula> matriculaEncontrada = matriculaService.buscarMatriculaPorId(idMatricula);
         if (matriculaEncontrada.isEmpty()) {
 
             return ResponseEntity.notFound().build();
         }
+        matriculaService.deletarMatricula(idMatricula);
         return ResponseEntity.noContent().build();
     }
 }

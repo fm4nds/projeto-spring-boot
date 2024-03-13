@@ -16,5 +16,5 @@ public interface EstudanteInterface {
 
     Estudante atualizarEstudante(UUID id, CadastrarOuEditarEstudanteDTO atualizarEstudanteDTO);
 
-    void deletarEstudante(Estudante estudante);
+    void deletarEstudante(UUID id);
 }

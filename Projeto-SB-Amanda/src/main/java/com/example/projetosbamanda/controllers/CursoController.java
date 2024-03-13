@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/curso")
 public class CursoController {
     final private CursoService cursoService;
 
@@ -32,7 +33,7 @@ public class CursoController {
         return ResponseEntity.ok(todosOsCursos);
     }
 
-    @GetMapping
+    @GetMapping("/{idCurso}")
     public ResponseEntity<Optional<Curso>> buscarCursoPorId(@PathVariable UUID idCurso) {
         Optional<Curso> cursoEncontrado = cursoService.buscarCursoPorId(idCurso);
         if (cursoEncontrado.isEmpty()) {
@@ -55,7 +56,7 @@ public class CursoController {
 
 
     @Transactional
-    @PutMapping
+    @PatchMapping("/{idCurso}")
     public ResponseEntity<CursoCadastradoOuEditadoDTO> editarCurso(@PathVariable UUID idCurso, @RequestBody CadastrarOuEditarCursoDTO atualizarCursoDTO) {
         Optional<Curso> cursoEncontrado = cursoService.buscarCursoPorId(idCurso);
         if (cursoEncontrado.isEmpty()) {
@@ -67,13 +68,14 @@ public class CursoController {
         return ResponseEntity.ok(cursoAtualizadoDTO);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{idCurso}")
     public ResponseEntity<Status> deletarCurso(@PathVariable UUID idCurso) {
         Optional<Curso> cursoEncontrado = cursoService.buscarCursoPorId(idCurso);
         if (cursoEncontrado.isEmpty()) {
 
             return ResponseEntity.notFound().build();
         }
+        cursoService.deletarCurso(idCurso);
         return ResponseEntity.noContent().build();
     }
 }

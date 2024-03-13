@@ -16,5 +16,5 @@ public interface CursoInterface {
 
     Curso atualizarCurso(UUID id, CadastrarOuEditarCursoDTO atualizarCursoDTO);
 
-    void deletarCurso(Curso curso);
+    void deletarCurso(UUID idCurso);
 }

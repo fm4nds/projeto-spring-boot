@@ -16,5 +16,6 @@ public interface MatriculaInterface {
 
     Matricula atualizarMatricula(UUID id, CadastrarOuEditarMatriculaDTO atualizarMatriculaDTO);
 
-    void deletarMatricula(Matricula matricula);
+
+    void deletarMatricula(UUID id);
 }

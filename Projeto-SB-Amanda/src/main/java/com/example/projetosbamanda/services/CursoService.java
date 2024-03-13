@@ -42,7 +42,7 @@ public class CursoService implements CursoInterface {
         return cursoRepository.save(curso);
     }
     @Override
-    public void deletarCurso(Curso curso) {
-        cursoRepository.delete(curso);
+    public void deletarCurso(UUID idCurso) {
+        cursoRepository.deleteById(idCurso);
     }
 }

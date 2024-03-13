@@ -11,6 +11,14 @@ public class Matricula {
     @GeneratedValue (strategy = GenerationType.AUTO)
     private UUID id;
 
+    @ManyToOne
+    @JoinColumn (name = "idCursos", referencedColumnName = "id")
+    private Curso idCurso;
+
+    @ManyToOne
+    @JoinColumn (name = "idEstudante", referencedColumnName = "id")
+    private Estudante idEstudante;
+
     public UUID getId() {
         return id;
     }
@@ -34,12 +42,4 @@ public class Matricula {
     public void setIdEstudante(Estudante idEstudante) {
         this.idEstudante = idEstudante;
     }
-
-    @OneToOne
-    @JoinColumn (name = "idCursos", referencedColumnName = "id")
-    private Curso idCurso;
-
-    @OneToOne
-    @JoinColumn (name = "idEstudante", referencedColumnName = "id")
-    private Estudante idEstudante;
 }

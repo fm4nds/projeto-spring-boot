@@ -41,8 +41,9 @@ public class MatriculaService implements com.example.projetosbamanda.services.in
         return matriculaRepository.save(matricula);
     }
     @Override
-    public void deletarMatricula(Matricula matricula) {
-        matriculaRepository.delete(matricula);
+    public void deletarMatricula(UUID id) {
+
+        matriculaRepository.deleteById(id);
     }
 }
 
