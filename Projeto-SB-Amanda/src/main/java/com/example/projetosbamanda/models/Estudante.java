@@ -11,7 +11,7 @@ public class Estudante {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private UUID id;
-    @Column (nullable = false, unique = true)
+    @Column (nullable = false)
     private String nome;
     @Column (nullable = false)
     private LocalDateTime dataMatricula;

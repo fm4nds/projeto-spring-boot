@@ -45,7 +45,7 @@ public class EstudanteService implements com.example.projetosbamanda.services.in
             estudante.setNome(atualizarEstudante.nome());
             return estudanteRepository.save(estudante);
         }
-        throw  new RuntimeException("O estudante não foi encontrado");
+        throw  new IllegalArgumentException("O estudante não foi encontrado");
     }
     @Override
     public void deletarEstudante(UUID id) {

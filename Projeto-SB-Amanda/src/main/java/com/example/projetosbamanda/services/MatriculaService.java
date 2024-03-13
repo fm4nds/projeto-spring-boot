@@ -41,9 +41,21 @@ public class MatriculaService implements com.example.projetosbamanda.services.in
         return matriculaRepository.save(matricula);
     }
     @Override
-    public void deletarMatricula(UUID id) {
+    public void deletarMatricula(UUID idMatricula) {
 
-        matriculaRepository.deleteById(id);
+        matriculaRepository.deleteById(idMatricula);
+    }
+
+    @Override
+    public Optional<List<Matricula>> buscarMatriculaComIdDoCurso(UUID idCurso){
+        Optional<List<Matricula>> matricula =  matriculaRepository.findByIdCurso_Id(idCurso);
+        return matricula;
+    }
+
+    @Override
+    public Optional<List<Matricula>> buscarMatriculaComIdDoEstudante(UUID idEstudante){
+        Optional<List<Matricula>> matricula =  matriculaRepository.findByIdEstudante_Id(idEstudante);
+        return matricula;
     }
 }
 

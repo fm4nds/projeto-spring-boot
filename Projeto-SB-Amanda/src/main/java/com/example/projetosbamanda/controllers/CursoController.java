@@ -3,7 +3,9 @@ package com.example.projetosbamanda.controllers;
 import com.example.projetosbamanda.dtos.curso.CadastrarOuEditarCursoDTO;
 import com.example.projetosbamanda.dtos.curso.CursoCadastradoOuEditadoDTO;
 import com.example.projetosbamanda.models.Curso;
+import com.example.projetosbamanda.models.Matricula;
 import com.example.projetosbamanda.services.CursoService;
+import com.example.projetosbamanda.services.MatriculaService;
 import jakarta.transaction.Status;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,12 @@ import java.util.UUID;
 @RequestMapping("/curso")
 public class CursoController {
     final private CursoService cursoService;
+    final private MatriculaService matriculaService;
 
     @Autowired
-    public CursoController(CursoService cursoService) {
+    public CursoController(CursoService cursoService, MatriculaService matriculaService) {
         this.cursoService = cursoService;
+        this.matriculaService = matriculaService;
     }
 
     @GetMapping
@@ -74,6 +78,12 @@ public class CursoController {
         if (cursoEncontrado.isEmpty()) {
 
             return ResponseEntity.notFound().build();
+        }
+
+        Optional<List<Matricula>> existeMatricula = matriculaService.buscarMatriculaComIdDoCurso(idCurso);
+
+        if(existeMatricula.isPresent() && !existeMatricula.get().isEmpty()) {
+            throw new IllegalArgumentException("O curso não pode ser deletado pois há matriculas relacionadas ativas");
         }
         cursoService.deletarCurso(idCurso);
         return ResponseEntity.noContent().build();

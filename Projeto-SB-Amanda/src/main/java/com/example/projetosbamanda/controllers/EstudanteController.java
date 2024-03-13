@@ -3,7 +3,9 @@ package com.example.projetosbamanda.controllers;
 import com.example.projetosbamanda.dtos.estudante.CadastrarOuEditarEstudanteDTO;
 import com.example.projetosbamanda.dtos.estudante.EstudanteCadastradoOuEditadoDTO;
 import com.example.projetosbamanda.models.Estudante;
+import com.example.projetosbamanda.models.Matricula;
 import com.example.projetosbamanda.services.EstudanteService;
+import com.example.projetosbamanda.services.MatriculaService;
 import jakarta.transaction.Status;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,11 @@ import java.util.UUID;
 @RequestMapping("/estudante")
 public class EstudanteController {
     final private EstudanteService estudanteService;
+    final private MatriculaService matriculaService;
     @Autowired
-    public EstudanteController (EstudanteService estudanteService) {
+    public EstudanteController (EstudanteService estudanteService, MatriculaService matriculaService) {
         this.estudanteService = estudanteService;
+        this.matriculaService = matriculaService;
     }
     @GetMapping
     public ResponseEntity<List<Estudante>> listaDeEstudantes() {
@@ -74,8 +78,12 @@ public class EstudanteController {
 
             return ResponseEntity.notFound().build();
         }
+        Optional<List<Matricula>> existeMatricula = matriculaService.buscarMatriculaComIdDoEstudante(idEstudante);
+
+        if(existeMatricula.isPresent() && !existeMatricula.get().isEmpty()) {
+            throw new IllegalArgumentException("O estudante não pode ser deletado pois há matriculas relacionadas ativas");
+        }
         estudanteService.deletarEstudante(idEstudante);
         return ResponseEntity.noContent().build();
     }
 }
-

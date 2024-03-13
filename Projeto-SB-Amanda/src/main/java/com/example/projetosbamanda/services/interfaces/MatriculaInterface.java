@@ -18,4 +18,8 @@ public interface MatriculaInterface {
 
 
     void deletarMatricula(UUID id);
+
+    Optional<List<Matricula>> buscarMatriculaComIdDoCurso(UUID idCurso);
+
+    Optional<List<Matricula>> buscarMatriculaComIdDoEstudante(UUID idEstudante);
 }
